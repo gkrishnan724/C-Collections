@@ -10,32 +10,19 @@ BIN_DIR = bin
 TEST_DIR = bin/tests
 TEST_SRC_DIR = tests
 
-# Output binaries
-TARGET = lltest
-HMAP_TEST = hmaptest
-COMBINED_TEST = run_tests
-
 # Source and object files
 SRCS = $(wildcard $(SRC_DIR)/*.c)
+TEST_SRCS = $(wildcard $(TEST_SRC_DIR)/*.c)
 OBJS = $(patsubst $(SRC_DIR)/%.c, $(BIN_DIR)/%.o, $(SRCS))
+TEST_BINS = $(patsubst $(TEST_SRC_DIR)/%.c, $(TEST_DIR)/%, $(TEST_SRCS))
 
 # Default rule
-all: $(TEST_DIR)/$(TARGET) $(TEST_DIR)/$(HMAP_TEST) $(TEST_DIR)/$(COMBINED_TEST)
+all: $(TEST_BINS)
 
-# Rule to create lltest binary
-$(TEST_DIR)/$(TARGET): $(OBJS) $(TEST_SRC_DIR)/lltest.c
+# Rule to create binaries for all .c files in the tests directory
+$(TEST_DIR)/%: $(TEST_SRC_DIR)/%.c $(OBJS)
 	@mkdir -p $(TEST_DIR)
 	$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS)
-
-# Rule to create hmaptest binary
-$(TEST_DIR)/$(HMAP_TEST): $(OBJS) $(TEST_SRC_DIR)/hmaptest.c
-	@mkdir -p $(TEST_DIR)
-	$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS)
-
-# Rule to create combined tests binary
-$(TEST_DIR)/$(COMBINED_TEST): $(TEST_DIR)/$(TARGET) $(TEST_DIR)/$(HMAP_TEST) $(TEST_SRC_DIR)/run_tests.c
-	@mkdir -p $(TEST_DIR)
-	$(CC) $(CFLAGS) $(TEST_SRC_DIR)/run_tests.c -o $@ $(LDFLAGS)
 
 # Rule to compile object files
 $(BIN_DIR)/%.o: $(SRC_DIR)/%.c

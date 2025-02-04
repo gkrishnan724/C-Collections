@@ -7,6 +7,7 @@
 const char *test_binaries[] = {
     "lltest",
     "hmaptest",
+    "ring_buftest",
     NULL // Marks the end of the list
 };
 
@@ -21,8 +22,9 @@ int main() {
         printf("Executing: %s\n", path);
         int ret = system(path); // Execute the binary
 
-        if (ret == -1) {
-            perror("Error running test");
+        if (ret != 0) {
+            printf("Error running test!!!!\n\n");
+            return EXIT_FAILURE;
         } else {
             printf("Test %s finished with status: %d\n\n", test_binaries[i], WEXITSTATUS(ret));
         }
