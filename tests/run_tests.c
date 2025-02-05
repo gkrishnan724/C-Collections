@@ -8,6 +8,7 @@ const char *test_binaries[] = {
     "lltest",
     "hmaptest",
     "ring_buftest",
+    "vectest",
     NULL // Marks the end of the list
 };
 

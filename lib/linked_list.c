@@ -184,3 +184,11 @@ void print_list(list_t* list, PrintFn printfn) {
     printf("\n");
 }
 
+void free_list(list_t* list) {
+    assert(list != NULL);
+    while (list->length > 0) {
+        node_t* node = remove_head(list);
+        free_node(node);
+    }
+}
+

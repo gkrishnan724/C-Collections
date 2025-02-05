@@ -6,6 +6,12 @@
  * @author Gopala Krishnan
  */
 
+#ifndef RING_BUF_H
+#define RING_BUF_H
+
+#include <stdlib.h>
+#include <string.h>
+
 /* -- Struct declaration and types -- */
 
 /** @defgroup ring_buf Definitions
@@ -38,10 +44,11 @@ void buf_init(ring_buf_t* buf);
  * @brief Enqueue data into the ring buffer
  * @param buf The ring buffer
  * @param data The data to be enqueued, this is a pointer to the actual data
+ * @param size The size of the data
  * @note The data is copied into the ring buffer
  * @return 0 on success, -1 on failure
  */
-int buf_enqueue(ring_buf_t* buf, void* data);
+int buf_enqueue(ring_buf_t* buf, void* data, size_t size);
 
 /**
  * @brief Dequeue data from the ring buffer
@@ -50,3 +57,12 @@ int buf_enqueue(ring_buf_t* buf, void* data);
  * @note The data is pointer to the actual data, which needs to be freed by the caller
  */
 void* buf_dequeue(ring_buf_t* buf);
+
+/**
+ * @brief Destroy the ring buffer
+ * @param buf The ring buffer
+ * @note Frees the memory allocated for the data in the buffer
+ */
+void buf_destroy(ring_buf_t* buf);
+
+#endif

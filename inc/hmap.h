@@ -6,7 +6,12 @@
  * 
  * @author Gopala Krishnan
  */
+
+#ifndef HMAP_H
+#define HMAP_H
+
 #include <linked_list.h>
+
 
 /* -- Struct declarations --- */
 
@@ -39,13 +44,21 @@ int hmap_put(hmap_t* hmap, char* key, void* data, size_t size);
 void* hmap_get(hmap_t* hmap, char* key);
 
 /**
- * @brief Method that deletes the element from hashmap with the given key
+ * @brief Method that removes the element from hashmap with the given key
  * This will also free the resources associated with the element
  * @param[in] hmap Hashmap from where element needs to be deleted
  * @param[in] key key for the element
  */
-void hmap_delete(hmap_t* hmap, char* key);
+void hmap_remove(hmap_t* hmap, char* key);
+
+/**
+ * @brief Method that frees the memory allocated for the hashmap
+ * @param[in] hmap hashmap to free
+ */
+void hmap_destroy(hmap_t* hmap);
 
 /**
  * @}
  */
+
+#endif

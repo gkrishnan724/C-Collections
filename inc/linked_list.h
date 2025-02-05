@@ -7,8 +7,12 @@
  * 
  * @author Gopala Krishnan
  */
+#ifndef LINKED_LIST_H
+#define LINKED_LIST_H
+
 #include <stdlib.h>
 #include <stdbool.h>
+
 
 /** @defgroup Linked list Definitions
  *  @{
@@ -123,6 +127,13 @@ node_t* find_node(list_t* list, Predicate predicateFn, void* search_data);
  */
 void print_list(list_t* list, PrintFn printfn);
 
+/**
+ * @brief Method that frees the memory allocated for the list
+ * @param[in] list linked list to free
+ */
+void free_list(list_t* list);
+
 /** 
  *  @}
  */
+#endif

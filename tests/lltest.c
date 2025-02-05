@@ -34,6 +34,8 @@ void test_alloc_node() {
 
     copy->x = 2;
     assert(some.x != 2 && copy->x == 2);
+
+    free_node(struct_node);
 }
 
 void test_init_list() {
@@ -45,6 +47,7 @@ void test_init_list() {
     assert(list->length == 0);
 
     printf("test_init_list passed\n");
+    free_list(list);
 }
 
 void test_insert_head() {
@@ -65,6 +68,7 @@ void test_insert_head() {
     assert(list->length == 1);
 
     printf("test_insert_head passed\n");
+    free_list(list);
 }
 
 void test_insert_tail() {
@@ -90,6 +94,7 @@ void test_insert_tail() {
     assert(list->length == 2);
 
     printf("test_insert_tail passed\n");
+    free_list(list);
 }
 
 void test_remove_node() {
@@ -122,6 +127,7 @@ void test_remove_node() {
     assert(list->tail == struct_node3);
 
     printf("test_remove_node passed\n");
+    free_list(list);
 }
 
 void test_insert_after() {
@@ -146,13 +152,14 @@ void test_insert_after() {
 
     insert_head(list, struct_node1);
     insert_tail(list, struct_node2);
-    insert_after(list, struct_node1, struct_node3);
+    insert_after(list, struct_node3, struct_node1);
 
     assert(list->length == 3);
     assert(list->head == struct_node1);
     assert(list->tail == struct_node2);
 
     printf("test_insert_after passed\n");
+    free_list(list);
 }
 
 void test_remove_tail() {
@@ -186,6 +193,8 @@ void test_remove_tail() {
     assert(list->head == struct_node1);
 
     printf("test_remove_tail passed\n");
+    free_list(list);
+
 }
 
 void test_remove_head() {
@@ -219,6 +228,8 @@ void test_remove_head() {
     assert(list->head == struct_node2);
 
     printf("test_remove_head passed\n");
+    free_list(list);
+
 }
 
 void test_insert_before_and_after() {
@@ -255,6 +266,7 @@ void test_insert_before_and_after() {
     assert(list->head == tail);
 
     printf("test_insert_before_and_after passed\n");
+    free_list(list);
 }
 
 int main() {

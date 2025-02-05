@@ -81,7 +81,7 @@ void* hmap_get(hmap_t* hmap, char* key) {
     return hnode->data;
 }
 
-void hmap_delete(hmap_t* hmap, char* key) {
+void hmap_remove(hmap_t* hmap, char* key) {
     assert(hmap != NULL && key != NULL);
     size_t index = hash_func(key);
     node_t* node = find_node(&hmap->table[index], match, key);
@@ -93,5 +93,12 @@ void hmap_delete(hmap_t* hmap, char* key) {
     hmap_node_t* hnode = node->data;
     free(hnode->data);
     free_node(node);
+}
+
+void hmap_destroy(hmap_t* hmap) {
+    assert(hmap != NULL);
+    for (int i = 0; i < BUCKET_SIZE; i++) {
+        free_list(&hmap->table[i]);
+    }
 }
 

@@ -11,12 +11,12 @@ typedef struct {
 
 // Function prototypes for test cases
 void test_hmap_put_get();
-void test_hmap_delete();
+void test_hmap_remove();
 void test_hmap_collision();
 
 int main() {
     test_hmap_put_get();
-    test_hmap_delete();
+    test_hmap_remove();
     test_hmap_collision();
     return 0;
 }
@@ -42,10 +42,12 @@ void test_hmap_put_get() {
     } else {
         printf("[FAIL] Retrieved value does not match inserted value\n");
     }
+
+    hmap_destroy(&hmap);
 }
 
-void test_hmap_delete() {
-    printf("Running test_hmap_delete...\n");
+void test_hmap_remove() {
+    printf("Running test_hmap_remove...\n");
 
     hmap_t hmap;
     memset(&hmap, 0, sizeof(hmap));
@@ -55,12 +57,14 @@ void test_hmap_delete() {
 
     hmap_put(&hmap, key1, &value1, sizeof(value1));
 
-    hmap_delete(&hmap, key1);
+    hmap_remove(&hmap, key1);
     if (hmap_get(&hmap, key1) == NULL) {
         printf("[PASS] Successfully deleted key1\n");
     } else {
         printf("[FAIL] Failed to delete key1\n");
     }
+    hmap_destroy(&hmap);
+
 }
 
 void test_hmap_collision() {
@@ -92,4 +96,5 @@ void test_hmap_collision() {
     } else {
         printf("[FAIL] Retrieved value for key2 does not match inserted value\n");
     }
+    hmap_destroy(&hmap);
 }
